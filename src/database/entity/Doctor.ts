@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 import { Appointment } from './Appointment';
 
@@ -7,8 +14,14 @@ export class DoctorModel {
   @OneToMany(() => Appointment, (appointment) => appointment.doctor)
   appointments: Appointment[];
 
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt!: Date;
+
   @Column({ type: 'int' })
   crm: number;
+
+  @Column({ length: 100, type: 'varchar' })
+  email: string;
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -21,4 +34,7 @@ export class DoctorModel {
 
   @Column({ length: 100, type: 'varchar' })
   specialty: string;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt!: Date;
 }
