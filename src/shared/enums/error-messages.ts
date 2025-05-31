@@ -1,0 +1,15 @@
+export const errorMessages = {
+  AUTHENTICATION_FAILED: 'Authentication failed',
+  BAD_REQUEST: (reason: string) => (reason ? `Bad request: ${reason}` : 'Bad request'),
+  FORBIDDEN: 'Forbidden',
+  INTERNAL_SERVER_ERROR: 'Internal server error',
+  INVALID_CREDENTIALS: 'Invalid credentials',
+  INVALID_DATE: (date: string) => `Invalid date: ${date}`,
+  INVALID_ID: (id: string) => `Invalid id: ${id}`,
+  NOT_FOUND: (resource: string) => `Resource ${resource} not found`,
+  RATE_LIMIT_EXCEEDED: 'Rate limit exceeded',
+  RESOURCE_CONFLICT: (resource: string) => `Resource ${resource} conflict`,
+  SECURITY_ACCESS_DENIED: 'Security access denied',
+  SERVICE_UNAVAILABLE: 'Service unavailable',
+  UNAUTHORIZED: (reason: string) => (reason ? `Unauthorized: ${reason}` : 'Unauthorized'),
+};
