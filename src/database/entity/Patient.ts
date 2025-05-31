@@ -3,22 +3,25 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Appointment } from './Appointment';
 
 @Entity()
-export class Patient {
+export class PatientModel {
   @OneToMany(() => Appointment, (appointment) => appointment.patient)
   appointments: Appointment[];
 
-  @Column()
-  birth_date: string;
+  @Column({ type: 'varchar' })
+  birthDate: string;
 
-  @Column()
-  cellphone: number;
+  @Column({ type: 'varchar' })
+  cellphone?: string;
 
-  @Column()
+  @Column({ length: 100, type: 'varchar' })
   email: string;
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column()
+  @Column({ length: 100, type: 'varchar' })
   name: string;
+
+  @Column({ type: 'varchar' })
+  password: string;
 }

@@ -2,12 +2,12 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
 import { Appointment } from './entity/Appointment';
-import { Doctor } from './entity/Doctor';
-import { Patient } from './entity/Patient';
+import { DoctorModel } from './entity/Doctor';
+import { PatientModel } from './entity/Patient';
 
 export const AppDataSource = new DataSource({
   database: 'salus',
-  entities: [Doctor, Patient, Appointment],
+  entities: [DoctorModel, PatientModel, Appointment],
   host: 'localhost',
   logging: false,
   migrations: [],

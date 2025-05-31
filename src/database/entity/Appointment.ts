@@ -1,25 +1,25 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Doctor } from './Doctor';
-import { Patient } from './Patient';
+import { DoctorModel } from './Doctor';
+import { PatientModel } from './Patient';
 
 @Entity()
 export class Appointment {
-  @Column()
+  @Column({ type: 'int' })
   crm: number;
 
-  @Column()
+  @Column({ type: 'date' })
   date: string;
 
-  @OneToMany(() => Doctor, (doctor) => doctor.appointments)
-  doctor: Doctor;
+  @OneToMany(() => DoctorModel, (doctor) => doctor.appointments)
+  doctor: DoctorModel;
 
-  @Column()
+  @Column({ type: 'time' })
   hour: string;
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @OneToMany(() => Patient, (patient) => patient.appointments)
-  patient: Patient;
+  @OneToMany(() => PatientModel, (patient) => patient.appointments)
+  patient: PatientModel;
 }
