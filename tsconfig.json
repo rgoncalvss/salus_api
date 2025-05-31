@@ -1,11 +1,16 @@
 {
-  "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
+    "lib": ["es2021"],
+    "target": "es2021",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "./dist",
-    "rootDir": "./"
+    "rootDir": "./",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "esModuleInterop": true
   },
   "include": ["**/*.ts"],
-  "exclude": ["dist"],
-  "emitDecoratorMetadata": true,
-  "experimentalDecorators": true
+  "exclude": ["dist"]
 }
