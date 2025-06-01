@@ -143,7 +143,10 @@ const remove = async (id: string): Promise<void> => {
   }
 
   if (!appointment.date || !appointment.hour) {
-    throw new HttpError(statusCode.BAD_REQUEST, 'Appointment date is incomplete');
+    throw new HttpError(
+      statusCode.BAD_REQUEST,
+      errorMessages.BAD_REQUEST('Appointment date is incomplete'),
+    );
   }
 
   const [day, month, year] = appointment.date.split('/');
@@ -162,7 +165,7 @@ const remove = async (id: string): Promise<void> => {
   const diffInMilliseconds = appointmentDateTime.getTime() - now.getTime();
   const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
 
-  if (diffInHours < 2) {
+  if (diffInHours <= 2) {
     throw new HttpError(
       statusCode.BAD_REQUEST,
       errorMessages.BAD_REQUEST('Cannot cancel appointment within 2 hours of the scheduled time'),
