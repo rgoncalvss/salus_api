@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { ZodError } from 'zod';
 
 import { uuidDto } from '../../../shared/dtos/uuid.dto';
-import { HttpError } from '../../../shared/errors/http-error';
 import { statusCode } from '../../../shared/status-code/status-code';
 import { createAppointmentsDTO } from '../dtos/create.dto';
 import { updateAppointmentsDTO } from '../dtos/update.dto';
@@ -18,15 +16,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    } else {
-      next(error);
-    }
+    next(error);
   }
 };
 
@@ -40,15 +30,7 @@ const getAllByDoctorId = async (req: Request, res: Response, next: NextFunction)
       data: appointments,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    } else {
-      next(error);
-    }
+    next(error);
   }
 };
 
@@ -62,15 +44,7 @@ const getAllByPatientId = async (req: Request, res: Response, next: NextFunction
       data: appointments,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    } else {
-      next(error);
-    }
+    next(error);
   }
 };
 
@@ -85,15 +59,7 @@ const getById = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    } else {
-      next(error);
-    }
+    next(error);
   }
 };
 
@@ -109,15 +75,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    } else {
-      next(error);
-    }
+    next(error);
   }
 };
 

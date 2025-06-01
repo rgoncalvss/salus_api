@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { ZodError } from 'zod';
 
 import { uuidDto } from '../../../shared/dtos/uuid.dto';
-import { HttpError } from '../../../shared/errors/http-error';
 import { statusCode } from '../../../shared/status-code/status-code';
 import { createPatientDTO } from '../dtos/create.dto';
 import { updatePatientDTO } from '../dtos/update.dto';
@@ -18,14 +16,6 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    }
-
     next(error);
   }
 };
@@ -52,14 +42,6 @@ const getById = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    }
-
     next(error);
   }
 };
@@ -76,14 +58,6 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    }
-
     next(error);
   }
 };
@@ -97,14 +71,6 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(statusCode.OK).send({ msg: 'User removed!' });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const parsedErrors = error.errors.map((err) => ({
-        item: err.path.join('.'),
-        message: err.message,
-      }));
-      next(new HttpError(statusCode.BAD_REQUEST, { message: 'Validation errors.', parsedErrors }));
-    }
-
     next(error);
   }
 };
