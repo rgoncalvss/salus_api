@@ -1,6 +1,7 @@
 import { errorMessages } from '../../../shared/enums/error-messages';
 import { HttpError } from '../../../shared/errors/http-error';
 import { statusCode } from '../../../shared/status-code/status-code';
+import authService from '../../auth/services/auth.service';
 import patientsRepository from '../repositories/patients.repository';
 import { Patient } from '../types/patient.interface';
 
@@ -11,7 +12,10 @@ const create = async (patient: Omit<Patient, 'appointments' | 'id'>): Promise<Pa
     throw new HttpError(statusCode.BAD_REQUEST, errorMessages.BAD_REQUEST('Email already exists'));
   }
 
-  return await patientsRepository.create(patient);
+  return await patientsRepository.create({
+    ...patient,
+    password: await authService.encryptPassword(patient.password),
+  });
 };
 
 const getAll = async () => {

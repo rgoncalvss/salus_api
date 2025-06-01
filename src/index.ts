@@ -1,9 +1,10 @@
 import express from 'express';
 import 'reflect-metadata';
 
+import { errorHandler } from '../src/shared/middlewares/errors';
 import { AppDataSource } from './database/data-source';
-import { errorHandler } from './middlewares/errors';
 import appointmentsRoute from './modules/appointments/routes/appointments.route';
+import authRoute from './modules/auth/routes/auth.route';
 import doctorsRoute from './modules/doctors/routes/doctors.route';
 import patientsRoute from './modules/patients/routes/patients.route';
 
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/patients', patientsRoute);
 app.use('/doctors', doctorsRoute);
 app.use('/appointments', appointmentsRoute);
+app.use('/auth', authRoute);
 app.use(errorHandler);
 
 app.listen(port, () => {

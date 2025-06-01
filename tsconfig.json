@@ -12,6 +12,6 @@
     "esModuleInterop": true,
     "strictNullChecks": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "src/types/**/*"],
   "exclude": ["dist"]
 }

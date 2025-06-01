@@ -4,7 +4,7 @@
 // middlewares/errorHandler.ts
 import { NextFunction, Request, Response } from 'express';
 
-import { HttpError } from '../shared/errors/http-error';
+import { HttpError } from '../errors/http-error';
 
 export function errorHandler(
   err: Error | HttpError,
