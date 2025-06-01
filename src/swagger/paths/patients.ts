@@ -52,7 +52,7 @@
  *                 value:
  *                   error:
  *                     message: "Validation errors."
- *                     parsedErrors:
+ *                     details:
  *                       - item: "email"
  *                         message: "Invalid email format"
  *                       - item: "name"
@@ -166,7 +166,7 @@
  *             example:
  *               error:
  *                 message: "Validation errors."
- *                 parsedErrors:
+ *                 details:
  *                   - item: ""
  *                     message: "Invalid uuid"
  *       401:

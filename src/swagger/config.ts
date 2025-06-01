@@ -396,11 +396,7 @@ const options: swaggerJSDoc.Options = {
           properties: {
             error: {
               properties: {
-                message: {
-                  example: 'Validation errors.',
-                  type: 'string',
-                },
-                parsedErrors: {
+                details: {
                   items: {
                     properties: {
                       item: {
@@ -415,6 +411,10 @@ const options: swaggerJSDoc.Options = {
                     type: 'object',
                   },
                   type: 'array',
+                },
+                message: {
+                  example: 'Validation errors.',
+                  type: 'string',
                 },
               },
               type: 'object',

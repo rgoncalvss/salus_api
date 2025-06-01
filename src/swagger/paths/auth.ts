@@ -44,7 +44,7 @@
  *             example:
  *               error:
  *                 message: "Validation errors."
- *                 parsedErrors:
+ *                 details:
  *                   - item: "email"
  *                     message: "Invalid email format"
  *                   - item: "type"

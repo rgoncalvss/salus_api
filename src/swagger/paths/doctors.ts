@@ -52,7 +52,7 @@
  *                 value:
  *                   error:
  *                     message: "Validation errors."
- *                     parsedErrors:
+ *                     details:
  *                       - item: "crm"
  *                         message: "CRM must be a positive integer"
  *                       - item: "specialty"
@@ -162,7 +162,7 @@
  *             example:
  *               error:
  *                 message: "Validation errors."
- *                 parsedErrors:
+ *                 details:
  *                   - item: ""
  *                     message: "Invalid uuid"
  *       401:
@@ -241,7 +241,7 @@
  *                 value:
  *                   error:
  *                     message: "Validation errors."
- *                     parsedErrors:
+ *                     details:
  *                       - item: "crm"
  *                         message: "CRM must be a positive integer"
  *               crm_conflict:

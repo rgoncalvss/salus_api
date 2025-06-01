@@ -62,7 +62,7 @@
  *                 value:
  *                   error:
  *                     message: "Validation errors."
- *                     parsedErrors:
+ *                     details:
  *                       - item: "date"
  *                         message: "Date is required"
  *                       - item: "doctorId"
@@ -234,7 +234,7 @@
  *                 value:
  *                   error:
  *                     message: "Validation errors."
- *                     parsedErrors:
+ *                     details:
  *                       - item: "date"
  *                         message: "Date is required"
  *               date_without_hour:
