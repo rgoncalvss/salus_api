@@ -25,7 +25,6 @@ const port = process.env.PORT ?? '3000';
 
 app.use(express.json());
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 app.use(cors());
 
 // Swagger documentation
