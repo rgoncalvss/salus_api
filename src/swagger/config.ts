@@ -447,6 +447,10 @@ const options: swaggerJSDoc.Options = {
         description: 'Development server',
         url: 'http://localhost:3000',
       },
+      {
+        description: 'Production server',
+        url: 'https://salus-api-9h6s.onrender.com',
+      },
     ],
   },
 };
