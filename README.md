@@ -46,4 +46,4 @@ npm run build
 
 ## API Documentation
 
-The API documentation will be available at `https://salus-api-9h6s.onrender.com/docs/`. (Note that it could take some time to load because off the free render instance)
+The API documentation will be available at `https://salus-api-9h6s.onrender.com/docs/`. (Note that it could take some time to load because off the free Render instance)
