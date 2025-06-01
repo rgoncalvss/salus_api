@@ -7,12 +7,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Appointment } from './Appointment';
+import { AppointmentModel } from './Appointment';
 
 @Entity()
 export class PatientModel {
-  @OneToMany(() => Appointment, (appointment) => appointment.patient)
-  appointments: Appointment[];
+  @OneToMany(() => AppointmentModel, (appointment) => appointment.patient)
+  appointments: AppointmentModel[];
 
   @Column({ type: 'varchar' })
   birthDate: string;

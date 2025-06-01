@@ -7,12 +7,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Appointment } from './Appointment';
+import { AppointmentModel } from './Appointment';
 
 @Entity()
 export class DoctorModel {
-  @OneToMany(() => Appointment, (appointment) => appointment.doctor)
-  appointments: Appointment[];
+  @OneToMany(() => AppointmentModel, (appointment) => appointment.doctor)
+  appointments: AppointmentModel[];
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;

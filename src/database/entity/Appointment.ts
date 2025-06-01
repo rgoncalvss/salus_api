@@ -2,7 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,26 +12,31 @@ import { DoctorModel } from './Doctor';
 import { PatientModel } from './Patient';
 
 @Entity()
-export class Appointment {
+export class AppointmentModel {
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;
 
-  @Column({ type: 'int' })
-  crm: number;
-
-  @Column({ type: 'date' })
+  @Column({ type: 'varchar' })
   date: string;
 
-  @OneToMany(() => DoctorModel, (doctor) => doctor.appointments)
+  @JoinColumn({ name: 'doctorId', referencedColumnName: 'id' })
+  @ManyToOne(() => DoctorModel, (doctor) => doctor.appointments, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   doctor: DoctorModel;
 
-  @Column({ type: 'time' })
+  @Column({ type: 'varchar' })
   hour: string;
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(() => PatientModel, (patient) => patient.appointments)
+  @JoinColumn({ name: 'patientId', referencedColumnName: 'id' })
+  @ManyToOne(() => PatientModel, (patient) => patient.appointments, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   patient: PatientModel;
 
   @UpdateDateColumn({ type: 'timestamp' })
