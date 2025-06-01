@@ -4,10 +4,10 @@ import patientsController from '../controllers/patients.controller';
 
 const router = Router();
 
-router.post('/patients', patientsController.create);
-router.get('/patients', patientsController.getAll);
-router.get('/patients/:id', patientsController.getById);
-router.patch('/patients/:id', patientsController.update);
-router.delete('/patients/:id', patientsController.remove);
+router.post('/', patientsController.create);
+router.get('/', patientsController.getAll);
+router.get('/:id', patientsController.getById);
+router.patch('/:id', patientsController.update);
+router.delete('/:id', patientsController.remove);
 
 export default router;
