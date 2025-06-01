@@ -265,6 +265,70 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
+ *   delete:
+ *     summary: Cancel appointment
+ *     description: Cancel an existing appointment. Appointments can only be cancelled if there are more than 2 hours until the scheduled time.
+ *     tags:
+ *       - Appointments
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Appointment unique identifier
+ *         example: "b47ac10b-58cc-4372-a567-0e02b2c3d481"
+ *     responses:
+ *       204:
+ *         description: Appointment cancelled successfully
+ *       400:
+ *         description: Bad request - Invalid UUID format, incomplete appointment data, or cancellation within 2 hours
+ *         content:
+ *           application/json:
+ *             schema:
+ *               oneOf:
+ *                 - $ref: '#/components/schemas/ValidationErrorResponse'
+ *                 - $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               invalid_uuid:
+ *                 summary: Invalid UUID format
+ *                 value:
+ *                   error:
+ *                     message: "Validation errors."
+ *                     details:
+ *                       - item: "id"
+ *                         message: "Invalid UUID format"
+ *               incomplete_data:
+ *                 summary: Incomplete appointment data
+ *                 value:
+ *                   error: "Bad request: Appointment data is incomplete"
+ *               cancellation_too_late:
+ *                 summary: Cancellation within 2 hours
+ *                 value:
+ *                   error: "Bad request: Cannot cancel appointment within 2 hours of the scheduled time"
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Appointment not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             example:
+ *               error: "Resource Appointment with id b47ac10b-58cc-4372-a567-0e02b2c3d481 not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *
  * /appointments/doctors/{id}:
  *   get:
