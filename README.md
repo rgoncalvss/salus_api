@@ -46,4 +46,4 @@ npm run build
 
 ## API Documentation
 
-The API will be available at `http://localhost:3000` once started.
+The API documentation will be available at `http://localhost:3000/docs` once started.
