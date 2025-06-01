@@ -6,7 +6,7 @@ import { Doctor } from '../types/doctor.interface';
 
 const create = async (
   doctor: Omit<Doctor, 'appointments' | 'createdAt' | 'id' | 'updatedAt'>,
-): Promise<Doctor> => {
+): Promise<Omit<Doctor, 'appointments' | 'createdAt' | 'id' | 'updatedAt'>> => {
   const existingDoctorCrm = await doctorsRepository.findByFilter({ crm: doctor.crm });
 
   const existingDoctorEmail = await doctorsRepository.findByFilter({ email: doctor.email });

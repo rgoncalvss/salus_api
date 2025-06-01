@@ -13,7 +13,7 @@ class DoctorsRepository {
 
   async create(
     doctor: Omit<Doctor, 'appointments' | 'createdAt' | 'id' | 'updatedAt'>,
-  ): Promise<Doctor> {
+  ): Promise<Omit<Doctor, 'appointments' | 'createdAt' | 'id' | 'updatedAt'>> {
     const newDoctor = this.repository.create(doctor);
     return await this.repository.save(newDoctor);
   }
