@@ -12,7 +12,7 @@ import { PatientInAppointment } from '../types/appointments.types';
 const create = async (
   appointment: Omit<Appointment, 'createdAt' | 'id' | 'updatedAt'>,
 ): Promise<Partial<Appointment> & { doctor: Doctor; patient: PatientInAppointment }> => {
-  validateAppointmentDate(appointment.date);
+  validateAppointmentDate(appointment.date, appointment.hour);
   await validateIfTheresNoAppointments(appointment);
 
   const doctor = await doctorsRepository.findById(appointment.doctorId);
@@ -94,7 +94,7 @@ const update = async (
   } as Appointment;
 
   if (appointment.date) {
-    validateAppointmentDate(appointment.date);
+    validateAppointmentDate(appointment.date, appointment.hour);
   }
 
   if (appointment.doctorId) {
@@ -136,10 +136,50 @@ const validateIfTheresNoAppointments = async (appointment: Appointment) => {
   }
 };
 
+const remove = async (id: string): Promise<void> => {
+  const appointment = await appointmentsRepository.findById(id);
+  if (!appointment) {
+    throw new HttpError(statusCode.NOT_FOUND, errorMessages.NOT_FOUND(`Appointment with id ${id}`));
+  }
+
+  if (!appointment.date || !appointment.hour) {
+    throw new HttpError(statusCode.BAD_REQUEST, 'Appointment date is incomplete');
+  }
+
+  const [day, month, year] = appointment.date.split('/');
+  const [hour, minute] = appointment.hour.split(':');
+
+  const appointmentDateTime = new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day),
+    Number(hour),
+    Number(minute),
+  );
+
+  const now = new Date();
+
+  const diffInMilliseconds = appointmentDateTime.getTime() - now.getTime();
+  const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
+
+  if (diffInHours < 2) {
+    throw new HttpError(
+      statusCode.BAD_REQUEST,
+      errorMessages.BAD_REQUEST('Cannot cancel appointment within 2 hours of the scheduled time'),
+    );
+  }
+
+  const result = await appointmentsRepository.remove(id);
+  if (result.affected === 0) {
+    throw new HttpError(statusCode.NOT_FOUND, errorMessages.NOT_FOUND(`Appointment with id ${id}`));
+  }
+};
+
 export default {
   create,
   getAllByDoctorId,
   getAllByPatientId,
   getById,
+  remove,
   update,
 };

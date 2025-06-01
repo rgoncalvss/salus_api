@@ -66,6 +66,10 @@ export class AppointmentsRepository {
     return this.transformAppointmentModel(appointment);
   }
 
+  public async remove(appointmentId: string) {
+    return await this.repository.delete(appointmentId);
+  }
+
   public async update(
     appointmentId: string,
     data: UpdateAppointment,

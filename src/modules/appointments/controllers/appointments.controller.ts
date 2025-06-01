@@ -79,10 +79,23 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const remove = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const params = req.params;
+
+    const id = uuidDto(params.id);
+    await appointmentsService.remove(id);
+
+    res.status(statusCode.NO_CONTENT).send();
+  } catch (error) {
+    next(error);
+  }
+};
 export default {
   create,
   getAllByDoctorId,
   getAllByPatientId,
   getById,
+  remove,
   update,
 };

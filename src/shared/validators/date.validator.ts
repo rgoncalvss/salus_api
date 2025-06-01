@@ -28,22 +28,41 @@ export const parseAppointmentDate = (dateString: string): Date => {
   return date;
 };
 
-export const validateAppointmentDate = (dateString: string): Date => {
+export const validateAppointmentDate = (dateString: string, timeString?: string): Date => {
   const appointmentDate = parseAppointmentDate(dateString);
+  const now = new Date();
+  const currentYear = now.getFullYear();
   const today = new Date();
-  const currentYear = today.getFullYear();
-
   today.setHours(0, 0, 0, 0);
-  appointmentDate.setHours(0, 0, 0, 0);
 
-  if (appointmentDate < today) {
+  if (timeString) {
+    const timeRegex = /^(\d{2}):(\d{2})$/;
+    const timeMatch = timeRegex.exec(timeString);
+
+    if (!timeMatch) {
+      throw new HttpError(
+        statusCode.BAD_REQUEST,
+        errorMessages.BAD_REQUEST('Invalid time format. Expected HH:MM'),
+      );
+    }
+
+    const [, hours, minutes] = timeMatch;
+    appointmentDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+  } else {
+    appointmentDate.setHours(0, 0, 0, 0);
+  }
+
+  if (appointmentDate < now) {
     throw new HttpError(
       statusCode.BAD_REQUEST,
-      errorMessages.BAD_REQUEST('Appointment date cannot be in the past'),
+      errorMessages.BAD_REQUEST('Appointment date and time cannot be in the past'),
     );
   }
 
-  if (appointmentDate.getFullYear() !== currentYear) {
+  if (
+    appointmentDate.getFullYear() < currentYear ||
+    appointmentDate.getFullYear() > currentYear + 1
+  ) {
     throw new HttpError(
       statusCode.BAD_REQUEST,
       errorMessages.BAD_REQUEST(
