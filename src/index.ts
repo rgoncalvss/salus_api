@@ -1,5 +1,6 @@
-import express from 'express';
+import cors from 'cors';
 import 'reflect-metadata';
+import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 
 import { AppDataSource } from './database/data-source';
@@ -23,6 +24,9 @@ const app = express();
 const port = process.env.PORT ?? '3000';
 
 app.use(express.json());
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+app.use(cors());
 
 // Swagger documentation
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
